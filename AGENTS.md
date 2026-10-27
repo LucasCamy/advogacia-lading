@@ -65,4 +65,7 @@ Segue `homelab-docs` (Keel + GHCR + k3s + Cloudflare Tunnel):
 - Keel (poll 1m) faz o rollout do Deployment `advogacia-landing` no namespace `landingpages`.
 - Imagem: nginx-unprivileged na porta 8080, `/healthz` para probes; config em `docker/nginx.conf`.
 - Service LoadBalancer na porta **8213** (`k8s/deploy.yaml`). Aplicar com `kubectl apply -f k8s/deploy.yaml`.
-- Hostname público cadastrado pelo proprietário no Cloudlane Tunnel: `advocacia.cloudlane.com.br` → `http://192.168.15.19:8213`.
+- Hostname público cadastrado pelo proprietário no Cloudlane Tunnel: `advocacia.cloudlane.com.br` → `http://192.168.15.19:8213` (no ar desde 27/10/2026).
+- Uptime Kuma: monitor 30 "Varela & Montenegro (Advocacia)" em `http://192.168.15.19:8213/healthz`, grupo "Aplicações & Web Services" da status page.
+- Beszel: monitor HTTP do domínio ainda pendente (cadastro manual no painel).
+- Porta, domínio e monitor estão registrados em `homelab-docs` (`04`, `05`, `09`). Mudou porta ou domínio? Atualize lá também.

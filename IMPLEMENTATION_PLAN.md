@@ -96,9 +96,15 @@ Recompor por largura (ver DESIGN.md). `gsap.matchMedia()` com `(min-width: 1024p
 - [ ] Lenis parado com diálogos abertos
 - [ ] Estados do formulário: erro, envio, sucesso
 
+## Publicação
+
+Publicado como demonstração em https://advocacia.cloudlane.com.br (k3s `landingpages`, porta 8213, Keel + GHCR), monitorado no Uptime Kuma. Detalhes em `README.md`.
+
 ## Pendências explícitas (bloqueiam publicação real)
 
 - Razão social, CNPJ, registro da sociedade na OAB/SP, endereço completo, telefone, e-mail e encarregado de dados: `[pendente]` visível.
 - Retratos da equipe são imagens de banco ilustrativas; o retrato do hero e as fotos editoriais são imagens geradas.
 - Minutas legais exigem revisão de advogado.
 - Integração real do formulário (backend, base legal, retenção).
+- Trocar o vídeo/quadros da Travessia (marca de bebida e pessoas visíveis).
+- Monitor HTTP do domínio no Beszel (cadastro manual).
