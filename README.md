@@ -43,7 +43,8 @@ Documentos de projeto: [AGENTS.md](AGENTS.md), [DESIGN.md](DESIGN.md), [IMPLEMEN
 
 | Item | Valor |
 |---|---|
-| Imagem | `ghcr.io/lucascamy/advogacia-lading:latest` (pública, linux/amd64), publicada pelo workflow `deploy.yml` a cada push em `main` |
+| Imagem | `ghcr.io/lucascamy/advogacia-lading:latest` e `:<sha>` (pública, linux/amd64), publicada pelo workflow `deploy.yml` a cada push em `main` |
+| Rollout | job `deploy-to-k8s` via Tailscale (`kubectl set image`), quando os segredos `TAILSCALE_AUTHKEY` e `KUBE_CONFIG` existem; Keel como reserva |
 | Cluster | k3s, namespace `landingpages`, Deployment `advogacia-landing` (Keel, poll de 1 min) |
 | Porta | Service LoadBalancer `192.168.15.19:8213` → container `8080` |
 | Domínio | `advocacia.cloudlane.com.br` no Cloudlane Tunnel |

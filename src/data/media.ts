@@ -60,6 +60,9 @@ const DIMENSIONS: Record<MediaKey, [number, number]> = {
 
 const assets = manifest.assets as Record<MediaKey, ManifestAsset>
 
+/** URL versionada: muda sempre que o conteúdo de public/media muda (ver vite.config.ts). */
+export const mediaUrl = (path: string) => `/${path.replace(/^\//, '')}?v=${__MEDIA_VERSION__}`
+
 export const focalToObjectPosition = ({ x, y }: { x: number; y: number }) =>
   `${Math.round(x * 100)}% ${Math.round(y * 100)}%`
 
@@ -68,7 +71,7 @@ function build(key: MediaKey): MediaAsset {
   const [width, height] = DIMENSIONS[key]
   return {
     key,
-    src: '/' + a.path,
+    src: mediaUrl(a.path),
     alt: a.alt,
     width,
     height,
@@ -96,7 +99,7 @@ export const frameSequence = {
   width: 1024,
   height: 576,
   fps: 24,
-  src: (i: number, format: FrameFormat = 'webp') => `/media/frames/frame_${String(i).padStart(4, '0')}.${format}`,
+  src: (i: number, format: FrameFormat = 'webp') => mediaUrl(`media/frames/frame_${String(i).padStart(4, '0')}.${format}`),
   credit: seq.credit,
   sourcePage: seq.sourcePage,
   licenseUrl: seq.licenseUrl,
