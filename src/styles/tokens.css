@@ -1,0 +1,55 @@
+:root {
+  /* Cor */
+  --bg: #0a0a0b;
+  --surface: #111113;
+  --raised: #18181b;
+  --line: rgba(242, 239, 233, 0.12);
+  --line-strong: rgba(242, 239, 233, 0.24);
+  --text: #f2efe9;
+  --muted: #9e9a93;
+  --faint: #6e6a64;
+  --accent: #c85a32;
+  --accent-hover: #d96a40;
+  --accent-text: #e0754b;
+  --danger: #e5484d;
+  --success: #6fbf8b;
+  --scrim: rgba(10, 10, 11, 0.78);
+
+  /* Tipografia */
+  --font-display: 'Archivo Variable', 'Archivo', 'Arial Narrow', sans-serif;
+  --font-sans: 'Instrument Sans Variable', 'Instrument Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+  --fs-monument: clamp(3.25rem, 13vw, 12.5rem);
+  --fs-h2: clamp(2.25rem, 6vw, 5.5rem);
+  --fs-h3: clamp(1.375rem, 2.2vw, 1.875rem);
+  --fs-lead: clamp(1.0625rem, 1.4vw, 1.3125rem);
+
+  /* Layout */
+  --gutter: 16px;
+  --header-h: 64px;
+  --max-w: 1440px;
+  --section-y: clamp(96px, 14vw, 176px);
+
+  /* Raios */
+  --r-0: 0px;
+  --r-2: 2px;
+  --r-pill: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 120ms;
+  --dur-2: 180ms;
+  --dur-3: 280ms;
+  --dur-4: 560ms;
+  --dur-5: 900ms;
+
+  --shadow-dialog: 0 30px 80px -20px rgba(10, 10, 11, 0.9);
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 32px; }
+}
+@media (min-width: 1280px) {
+  :root { --gutter: 48px; }
+}

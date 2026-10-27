@@ -1,0 +1,10 @@
+**/node_modules
+dist
+.git
+validation
+scripts
+k8s
+*.md
+*.log
+*.tsbuildinfo
+.DS_Store
