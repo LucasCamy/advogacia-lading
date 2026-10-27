@@ -5,7 +5,6 @@
   "mediaDirectory": "media/",
   "licenseNotes": {
     "unsplash": "Free under the Unsplash License; attribution is appreciated. Verify any model/property rights for the final commercial use.",
-    "pexels": "Free under the Pexels License; attribution is appreciated. Do not imply that identifiable people or brands endorse the firm.",
     "stockPeople": "The three team portraits are illustrative stock photography, not verified members of the law firm. Do not present them as actual firm staff without replacement or appropriate authorization."
   },
   "assets": {
@@ -16,7 +15,10 @@
       "sourceUrl": null,
       "alt": "Retrato editorial em chiaroscuro da sócia-fundadora, com blazer bordô e fundo verde-escuro.",
       "expectedAspectRatio": "4:5",
-      "focalPoint": { "x": 0.51, "y": 0.43 },
+      "focalPoint": {
+        "x": 0.51,
+        "y": 0.43
+      },
       "credit": "Imagem gerada para este projeto"
     },
     "editorial": {
@@ -26,7 +28,10 @@
       "sourceUrl": null,
       "alt": "Advogada de terno descendo uma escadaria clássica de madeira com pasta de couro.",
       "expectedAspectRatio": "4:3",
-      "focalPoint": { "x": 0.34, "y": 0.42 },
+      "focalPoint": {
+        "x": 0.34,
+        "y": 0.42
+      },
       "credit": "Imagem gerada para este projeto"
     },
     "contract": {
@@ -36,7 +41,10 @@
       "sourceUrl": null,
       "alt": "Close-up das mãos de um sócio assinando um contrato com caneta-tinteiro sobre mesa de madeira.",
       "expectedAspectRatio": "4:3",
-      "focalPoint": { "x": 0.5, "y": 0.53 },
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.53
+      },
       "credit": "Imagem gerada para este projeto"
     },
     "contact": {
@@ -46,7 +54,10 @@
       "sourceUrl": null,
       "alt": "Sala de conselho com mesa longa de madeira e couro diante de janelas com luzes da cidade à noite.",
       "expectedAspectRatio": "16:10",
-      "focalPoint": { "x": 0.5, "y": 0.48 },
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.48
+      },
       "credit": "Imagem gerada para este projeto"
     },
     "corridor": {
@@ -57,7 +68,10 @@
       "licenseUrl": "https://unsplash.com/license",
       "alt": "Corredor corporativo escuro com paredes de vidro, luzes discretas e perspectiva central.",
       "expectedAspectRatio": "4:5",
-      "focalPoint": { "x": 0.5, "y": 0.48 },
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.48
+      },
       "credit": "Olivia Hibbins / Unsplash"
     },
     "library": {
@@ -68,7 +82,10 @@
       "licenseUrl": "https://unsplash.com/license",
       "alt": "Estudo com estantes de madeira e sofá de couro em luz quente e ambiente intimista.",
       "expectedAspectRatio": "4:5",
-      "focalPoint": { "x": 0.5, "y": 0.56 },
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.56
+      },
       "credit": "Brett Wharton / Unsplash"
     },
     "team01": {
@@ -79,7 +96,10 @@
       "licenseUrl": "https://unsplash.com/license",
       "alt": "Retrato de uma profissional executiva em blazer cinza diante de uma janela de escritório.",
       "expectedAspectRatio": "3:4",
-      "focalPoint": { "x": 0.52, "y": 0.36 },
+      "focalPoint": {
+        "x": 0.52,
+        "y": 0.36
+      },
       "credit": "Christina @ wocintechchat.com / Unsplash",
       "representativeStockImage": true
     },
@@ -91,7 +111,10 @@
       "licenseUrl": "https://unsplash.com/license",
       "alt": "Retrato aproximado de uma profissional executiva em blazer preto, em fundo neutro.",
       "expectedAspectRatio": "3:4",
-      "focalPoint": { "x": 0.5, "y": 0.33 },
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.33
+      },
       "credit": "Unsplash photo ID 1581065178047-8ee15951ede6",
       "representativeStockImage": true
     },
@@ -103,44 +126,68 @@
       "licenseUrl": "https://unsplash.com/license",
       "alt": "Retrato de um executivo em terno escuro e camisa branca, diante de fundo claro de escritório.",
       "expectedAspectRatio": "3:4",
-      "focalPoint": { "x": 0.5, "y": 0.31 },
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.31
+      },
       "credit": "Austin Distel / Unsplash",
       "representativeStockImage": true
     },
     "heroAmbient": {
-      "path": "media/hero-ambient.mp4",
-      "sourcePath": "source/corridor-video-source.mp4",
-      "sourceUrl": "https://videos.pexels.com/video-files/4351668/4351668-hd_1920_1080_25fps.mp4",
-      "sourcePage": "https://www.pexels.com/video/people-walking-on-a-dark-corridor-4351668/",
-      "licenseUrl": "https://www.pexels.com/license/",
-      "alt": "Vídeo atmosférico de cinco segundos em corredor interno escuro com luzes quentes.",
+      "sourceUrl": null,
       "expectedAspectRatio": "16:9",
-      "focalPoint": { "x": 0.5, "y": 0.5 },
-      "durationSeconds": 5,
-      "loop": true,
-      "credit": "Darlene Alderson / Pexels",
-      "processing": "Corte de 5 s, escurecido e dessaturado levemente; sem áudio."
-    },
-    "canvasSequence": {
-      "path": "media/canvas-sequence.mp4",
-      "sourcePath": "source/corridor-video-source.mp4",
-      "sourceUrl": "https://videos.pexels.com/video-files/4351668/4351668-hd_1920_1080_25fps.mp4",
-      "sourcePage": "https://www.pexels.com/video/people-walking-on-a-dark-corridor-4351668/",
-      "licenseUrl": "https://www.pexels.com/license/",
-      "alt": "Sequência contínua de cinco segundos atravessando um corredor arquitetônico escuro.",
-      "expectedAspectRatio": "16:9",
-      "focalPoint": { "x": 0.5, "y": 0.5 },
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
       "durationSeconds": 5,
       "frameRate": 24,
+      "audio": false,
+      "credit": "Derivado de imagens geradas para este projeto",
+      "path": "media/hero-ambient.mp4",
+      "sourcePaths": [
+        "media/contact-space.webp",
+        "media/section-editorial.webp"
+      ],
+      "alt": "Sala de conselho noturna e escadaria clássica em luz cinematográfica suave.",
+      "width": 1920,
+      "height": 1080,
+      "loop": true,
+      "processing": "Loop de 5 s entre a sala de conselho e a escadaria, com movimento de câmera e luz quente."
+    },
+    "canvasSequence": {
+      "sourceUrl": null,
+      "expectedAspectRatio": "16:9",
+      "focalPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "durationSeconds": 5,
+      "frameRate": 24,
+      "audio": false,
+      "credit": "Derivado de imagens geradas para este projeto",
+      "path": "media/canvas-sequence.mp4",
+      "sourcePaths": [
+        "media/section-editorial.webp",
+        "media/bento-02-contract.webp",
+        "media/contact-space.webp"
+      ],
+      "alt": "Travessia entre escadaria clássica, assinatura de contrato e sala de conselho noturna.",
+      "width": 1024,
+      "height": 576,
       "frameCount": 120,
       "framesDirectory": "media/frames/",
       "framePattern": "media/frames/frame_%04d.webp",
+      "frameAvifPattern": "media/frames/frame_%04d.avif",
       "firstFrame": "media/frames/frame_0001.webp",
       "lastFrame": "media/frames/frame_0120.webp",
       "frameWidth": 1024,
+      "frameHeight": 576,
       "frameQuality": 80,
-      "credit": "Darlene Alderson / Pexels",
-      "processing": "Corte de 5 s sem áudio, H.264 24 fps; 120 WebP extraídos a 1024 px."
+      "frameAvifCount": 120,
+      "frameAvifCodec": "AV1",
+      "frameAvifCrf": 30,
+      "processing": "Travessia Estratégica em Chiaroscuro: escadaria, contrato e sala de conselho com transições por máscara; 120 quadros."
     }
   },
   "conversion": {
@@ -152,6 +199,11 @@
     "frameWidth": 1024,
     "videoCodec": "H.264",
     "videoDurationSeconds": 5,
-    "notes": "Imagens geradas preservam o enquadramento original. Fotos de banco são recortadas para as proporções indicadas."
+    "notes": "Sequências e ambiências são geradas das imagens locais do projeto com Python, OpenCV e FFmpeg.",
+    "frameHeight": 576,
+    "frameRate": 24,
+    "frameAvifFormat": "AVIF",
+    "frameAvifCodec": "AV1",
+    "frameAvifCrf": 30
   }
 }

@@ -240,12 +240,15 @@ export const areas: Area[] = [
 export const areaRowImages: MediaKey[] = ['corridor', 'contract', 'library']
 
 export type Milestone = { index: string; title: string; text: string; at: number; frame: number }
-/** `at` = progresso (0..1) da cena em que a legenda entra; `frame` = quadro-chave do fallback. */
+/**
+ * `at` = progresso (0..1) da cena em que a legenda entra; `frame` = quadro-chave do fallback.
+ * Cenas da sequência: escadaria 1–39, contrato 49–79, sala de conselho 88–120 (40–48 e 80–87 são transições).
+ */
 export const milestones: Milestone[] = [
-  { index: '01', title: 'Escuta', text: 'O caso entra pela porta da frente: fatos, documentos e o que você quer preservar.', at: 0, frame: 1 },
-  { index: '02', title: 'Leitura', text: 'Separamos o ruído do que decide: prazos, provas, riscos e quem tem poder de acordo.', at: 0.27, frame: 40 },
-  { index: '03', title: 'Decisão', text: 'Você escolhe o caminho com cenários escritos: negociar, prevenir ou litigar.', at: 0.54, frame: 80 },
-  { index: '04', title: 'Condução', text: 'Seguimos até o fim do corredor, com relatório a cada etapa e um sócio ao lado.', at: 0.8, frame: 120 },
+  { index: '01', title: 'Escuta', text: 'O caso chega com fatos, documentos e o que você quer preservar.', at: 0, frame: 1 },
+  { index: '02', title: 'Leitura', text: 'Separamos o ruído do que decide: prazos, provas, riscos e quem tem poder de acordo.', at: 0.27, frame: 30 },
+  { index: '03', title: 'Decisão', text: 'Você escolhe o caminho com cenários escritos e só assina o que entendeu.', at: 0.54, frame: 64 },
+  { index: '04', title: 'Condução', text: 'Da mesa de reunião ao encerramento, com relatório a cada etapa e um sócio ao lado.', at: 0.8, frame: 110 },
 ]
 
 export type Step = { index: string; title: string; text: string; duration: string; deliverable: string }

@@ -2,7 +2,7 @@
 
 ## Missão visual
 
-Fazer o visitante sentir que entrou num edifício: luz baixa, matéria nobre, estrutura exposta. A página é uma **arquitetura em chiaroscuro** onde a grade de fios de 1px é a planta do escritório e a tipografia monumental é a fachada. O scroll é a travessia: do retrato da sócia ao corredor, do método à mesa de conselho.
+Fazer o visitante sentir que entrou num edifício: luz baixa, matéria nobre, estrutura exposta. A página é uma **arquitetura em chiaroscuro** onde a grade de fios de 1px é a planta do escritório e a tipografia monumental é a fachada. O scroll é a travessia: do retrato da sócia à escadaria, do contrato à mesa de conselho.
 
 Direção: **Chiaroscuro Legal Architecture / Brutalist Hairline Grid**.
 
@@ -102,7 +102,7 @@ Header fixo de 64px com fundo `rgba(10,10,11,0.72)` e blur; fio inferior de 1px.
 
 ## Visualização do elemento-assinatura
 
-**Travessia do Caso:** canvas 16:9 em tela cheia com os 120 quadros do corredor, vinheta nas bordas, quatro legendas que entram em sequência (`01 Escuta` → `04 Desfecho`), contador de quadro em mono e régua de progresso com 4 marcos. Botões `Etapa anterior` / `Próxima etapa` levam o scroll até o marco correspondente.
+**Travessia do Caso:** canvas 16:9 em tela cheia com os 120 quadros (escadaria 1–39 → contrato 49–79 → sala de conselho 88–120, transições por máscara), em AVIF com fallback WebP e sem filtro de cor, vinheta nas bordas, quatro legendas que entram em sequência (`01 Escuta` → `04 Condução`), contador de quadro em mono e régua de progresso com 4 marcos. Botões `Etapa anterior` / `Próxima etapa` levam o scroll até o marco correspondente.
 
 ## Motion
 

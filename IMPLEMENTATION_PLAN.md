@@ -73,10 +73,10 @@ Recompor por largura (ver DESIGN.md). `gsap.matchMedia()` com `(min-width: 1024p
 
 ## Fallback do elemento-assinatura
 
-1. Pôster: `frame_0001.webp` aparece no canvas imediatamente (primeiro quadro carregado antes dos demais).
+1. Pôster: `frame_0001` aparece no canvas imediatamente (primeiro quadro carregado antes dos demais). Quadros em AVIF; se o navegador não decodificar, troca para WebP no primeiro erro.
 2. Pré-carregamento só a partir de `start: 'top 250%'` (`once: true`).
 3. Quadro ausente → desenha o mais próximo já carregado; redesenha quando chega.
-4. `prefers-reduced-motion: reduce` (sem `?movimento=1`) → grade estática com 4 marcos e quadros-chave (`frame_0001`, `0040`, `0080`, `0120`).
+4. `prefers-reduced-motion: reduce` (sem `?movimento=1`) → grade estática com 4 marcos e quadros-chave fora das transições (`frame_0001`, `0030`, `0064`, `0110`), via `<picture>` AVIF + WebP.
 5. Canvas `aria-hidden`; legendas em texto real com `aria-live`.
 
 ## Performance
@@ -106,5 +106,4 @@ Publicado como demonstração em https://advocacia.cloudlane.com.br (k3s `landin
 - Retratos da equipe são imagens de banco ilustrativas; o retrato do hero e as fotos editoriais são imagens geradas.
 - Minutas legais exigem revisão de advogado.
 - Integração real do formulário (backend, base legal, retenção).
-- Trocar o vídeo/quadros da Travessia (marca de bebida e pessoas visíveis).
 - Monitor HTTP do domínio no Beszel (cadastro manual).

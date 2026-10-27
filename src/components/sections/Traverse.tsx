@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { CaretLeft, CaretRight } from '@phosphor-icons/react'
 import { milestones } from '../../data/content'
-import { frameSequence, media } from '../../data/media'
+import { frameSequence, media, type FrameFormat } from '../../data/media'
 import { MQ, ScrollTrigger, gsap, scrollToTarget, useGSAP, useMotionAllowed } from '../../lib/scroll'
 
 const { count: FRAMES, src: frameSrc } = frameSequence
@@ -34,6 +34,8 @@ function TraverseScene() {
   const trigger = useRef<ScrollTrigger | null>(null)
   const [step, setStep] = useState(0)
   const stepRef = useRef(0)
+  // Tenta AVIF; no primeiro erro de decodificação passa para WebP e repete o quadro.
+  const format = useRef<FrameFormat>('avif')
 
   /** Desenha o quadro pedido ou o carregado mais próximo antes dele (cover manual). */
   const draw = useCallback((index: number) => {
@@ -59,7 +61,14 @@ function TraverseScene() {
       if (frames.current[i]) return
       const img = new Image()
       img.decoding = 'async'
-      img.src = frameSrc(i + 1)
+      const fmt = format.current
+      img.onerror = () => {
+        if (fmt === 'avif') {
+          format.current = 'webp'
+          load(i)
+        }
+      }
+      img.src = frameSrc(i + 1, fmt)
       img.onload = () => {
         frames.current[i] = img
         // Redesenha quando o quadro esperado (ou um mais próximo) chega.
@@ -183,7 +192,7 @@ function TraverseScene() {
       <canvas
         ref={canvas}
         aria-hidden
-        className="absolute inset-0 h-full w-full [filter:saturate(0.75)_brightness(0.9)]"
+        className="absolute inset-0 h-full w-full"
         width={frameSequence.width}
         height={frameSequence.height}
       />
@@ -194,7 +203,7 @@ function TraverseScene() {
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-bg via-bg/70 to-transparent" />
 
       <p className="sr-only">
-        Sequência de vídeo controlada pela rolagem: atravessa um corredor escuro, representando as quatro etapas de um caso.
+        Sequência controlada pela rolagem: uma advogada desce a escadaria, um contrato é assinado e a sala de reunião aparece à noite, representando as quatro etapas de um caso.
       </p>
 
       <div className="wrap relative flex h-full flex-col pb-6 pt-[calc(var(--header-h)+28px)] lg:pb-10">
@@ -261,7 +270,7 @@ function TraverseScene() {
           </button>
         </div>
         <p className="mono mt-4 text-[10px] text-muted">
-          Vídeo: {media.canvasSequence.credit} · Licença Pexels
+          Sequência: {media.canvasSequence.credit}
         </p>
       </div>
     </section>
@@ -279,15 +288,18 @@ function TraverseStatic() {
             <li key={m.index} className="border-b border-r border-line">
               <figure>
                 <div className="aspect-video overflow-hidden bg-surface">
-                  <img
-                    src={frameSrc(m.frame)}
-                    alt=""
-                    width={frameSequence.width}
-                    height={frameSequence.height}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-cover [filter:saturate(0.75)_brightness(0.9)]"
-                  />
+                  <picture>
+                    <source srcSet={frameSrc(m.frame, 'avif')} type="image/avif" />
+                    <img
+                      src={frameSrc(m.frame)}
+                      alt=""
+                      width={frameSequence.width}
+                      height={frameSequence.height}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover"
+                    />
+                  </picture>
                 </div>
                 <figcaption className="p-6">
                   <p className="mono tnum text-accent-text">{m.index}</p>
@@ -298,7 +310,7 @@ function TraverseStatic() {
             </li>
           ))}
         </ol>
-        <p className="mono mt-4 text-[10px] text-muted">Quadros: {media.canvasSequence.credit} · Licença Pexels</p>
+        <p className="mono mt-4 text-[10px] text-muted">Quadros: {media.canvasSequence.credit}</p>
       </div>
     </section>
   )

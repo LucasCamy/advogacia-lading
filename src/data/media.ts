@@ -46,7 +46,7 @@ export type MediaAsset = {
 /** Dimensões reais dos arquivos em public/media (conferidas na cópia do pacote). */
 const DIMENSIONS: Record<MediaKey, [number, number]> = {
   hero: [1122, 1402],
-  heroAmbient: [1280, 720],
+  heroAmbient: [1920, 1080],
   editorial: [1448, 1086],
   corridor: [1000, 1250],
   contract: [1448, 1086],
@@ -55,7 +55,7 @@ const DIMENSIONS: Record<MediaKey, [number, number]> = {
   team02: [900, 1200],
   team03: [900, 1200],
   contact: [1586, 992],
-  canvasSequence: [1920, 1080],
+  canvasSequence: [1024, 576],
 }
 
 const assets = manifest.assets as Record<MediaKey, ManifestAsset>
@@ -77,7 +77,8 @@ function build(key: MediaKey): MediaAsset {
     credit: a.credit,
     sourcePage: a.sourcePage,
     licenseUrl: a.licenseUrl,
-    generated: a.credit.startsWith('Imagem gerada'),
+    // "Imagem gerada…" e "Derivado de imagens geradas…"
+    generated: /gerad/i.test(a.credit),
     representative: Boolean(a.representativeStockImage),
   }
 }
@@ -86,13 +87,16 @@ export const media = Object.fromEntries(
   (Object.keys(DIMENSIONS) as MediaKey[]).map((k) => [k, build(k)]),
 ) as Record<MediaKey, MediaAsset>
 
+/** AVIF (metade do peso) com WebP como fallback; os dois conjuntos têm os mesmos 120 quadros. */
+export type FrameFormat = 'avif' | 'webp'
+
 const seq = assets.canvasSequence
 export const frameSequence = {
   count: seq.frameCount ?? 120,
   width: 1024,
   height: 576,
   fps: 24,
-  src: (i: number) => `/media/frames/frame_${String(i).padStart(4, '0')}.webp`,
+  src: (i: number, format: FrameFormat = 'webp') => `/media/frames/frame_${String(i).padStart(4, '0')}.${format}`,
   credit: seq.credit,
   sourcePage: seq.sourcePage,
   licenseUrl: seq.licenseUrl,

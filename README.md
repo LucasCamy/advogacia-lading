@@ -54,4 +54,16 @@ Atualizar o site: commit e push em `main`. Primeira instalação ou mudança de 
 
 ## Créditos de mídia
 
-Retrato do hero, escadaria, contrato e sala de reuniões: imagens geradas para o projeto. Corredor e biblioteca: Unsplash (Olivia Hibbins, Brett Wharton). Retratos da equipe: Unsplash (ilustrativos). Vídeos e quadros da Travessia: Darlene Alderson / Pexels. Detalhes e links de licença no rodapé do site e em `src/data/MEDIA_MANIFEST.json`.
+Retrato do hero, escadaria, contrato e sala de reuniões: imagens geradas para o projeto. Corredor e biblioteca: Unsplash (Olivia Hibbins, Brett Wharton). Retratos da equipe: Unsplash (ilustrativos). Vídeo de ambiência, vídeo e quadros da Travessia: derivados das imagens geradas para o projeto (escadaria, contrato e sala de reuniões). Detalhes e links de licença no rodapé do site e em `src/data/MEDIA_MANIFEST.json`.
+
+### Quadros AVIF
+
+Os 120 `frames/*.avif` do pacote original não decodificavam no Chrome nem no Edge (gerados numa única passada `-f image2`). Foram regerados quadro a quadro a partir dos WebP do pacote, com os mesmos parâmetros:
+
+```bash
+for i in $(seq -f "%04g" 1 120); do
+  ffmpeg -v error -y -i public/media/frames/frame_$i.webp -vf format=yuv420p     -c:v libaom-av1 -still-picture 1 -crf 30 -b:v 0 -cpu-used 6 -frames:v 1 public/media/frames/frame_$i.avif
+done
+```
+
+Ao receber um pacote novo, confira se os AVIF abrem no navegador antes de publicar. O canvas volta para WebP sozinho se o AVIF falhar, mas a grade estática (movimento reduzido) usa `<picture>` e mostraria imagem quebrada.

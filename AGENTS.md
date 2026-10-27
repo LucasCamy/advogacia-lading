@@ -13,7 +13,7 @@ Landing page demonstrativa (scrollytelling) do escritório fictício **Varela & 
 ## Organização
 
 ```
-public/media/            mídias do pacote (não editar à mão; origem em src/data/MEDIA_MANIFEST.json)
+public/media/            mídias do pacote (não editar à mão; origem em src/data/MEDIA_MANIFEST.json; AVIF regerados, ver README)
 src/data/                media.ts (fonte única de mídia), content.ts (conteúdo demonstrativo)
 src/lib/                 scroll.ts (GSAP/Lenis/reduced motion), useDialog.ts, useCountUp etc.
 src/styles/              tokens.css (CSS variables), globals.css
