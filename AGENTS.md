@@ -62,8 +62,7 @@ Antes de concluir mudanças de UI: `npm run typecheck`, `npm run build`, `npm ru
 Segue `homelab-docs` (Keel + GHCR + k3s + Cloudflare Tunnel):
 
 - Push em `main` → `.github/workflows/deploy.yml` publica `ghcr.io/lucascamy/advogacia-lading:latest` (linux/amd64).
-- Deploy direto: job `deploy-to-k8s` (padrão do repo `Cloudlane`) entra na tailnet e roda `kubectl set image ...:<sha>` + `rollout status`. Requer os segredos `TAILSCALE_AUTHKEY` e `KUBE_CONFIG` neste repositório; sem eles o job só emite um aviso.
-- Keel (poll 1m) também observa o Deployment `advogacia-landing` (namespace `landingpages`). Em 27/10/2026 ele registrou o repositório, mas não aplicou o primeiro push novo; o rollout foi feito com `kubectl rollout restart`.
+- Keel (poll 1m) observa o Deployment `advogacia-landing` (namespace `landingpages`). A anotação `keel.sh/match-tag: "true"` é obrigatória: sem ela a policy `force` compara tags e nunca detecta um novo digest em `:latest` (diagnóstico de 27/10/2026, registrado no homelab-docs). O label `org.opencontainers.image.revision` garante digest novo a cada commit.
 - Mídias usam URL versionada (`?v=<hash de public/media>`, gerado no `vite.config.ts`): nginx e Cloudflare guardam `/media/` por 7 dias, então trocar arquivo sem mudar a URL deixaria a versão velha em cache.
 - Imagem: nginx-unprivileged na porta 8080, `/healthz` para probes; config em `docker/nginx.conf`.
 - Service LoadBalancer na porta **8213** (`k8s/deploy.yaml`). Aplicar com `kubectl apply -f k8s/deploy.yaml`.

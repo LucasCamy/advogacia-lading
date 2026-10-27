@@ -11,6 +11,8 @@ metadata:
     keel.sh/policy: "force"
     keel.sh/trigger: "poll"
     keel.sh/pollSchedule: "@every 1m"
+    # Sem match-tag, a policy force compara tags e nunca vê novo digest no mesmo :latest.
+    keel.sh/match-tag: "true"
 spec:
   replicas: 1
   revisionHistoryLimit: 3
