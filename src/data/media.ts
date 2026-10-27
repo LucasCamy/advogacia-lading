@@ -41,12 +41,14 @@ export type MediaAsset = {
   licenseUrl?: string
   generated: boolean
   representative: boolean
+  /** Versão AVIF (imagens estáticas); vídeos não têm. */
+  avif?: string
 }
 
 /** Dimensões reais dos arquivos em public/media (conferidas na cópia do pacote). */
 const DIMENSIONS: Record<MediaKey, [number, number]> = {
   hero: [1122, 1402],
-  heroAmbient: [1920, 1080],
+  heroAmbient: [1280, 720],
   editorial: [1448, 1086],
   corridor: [1000, 1250],
   contract: [1448, 1086],
@@ -55,7 +57,7 @@ const DIMENSIONS: Record<MediaKey, [number, number]> = {
   team02: [900, 1200],
   team03: [900, 1200],
   contact: [1586, 992],
-  canvasSequence: [1024, 576],
+  canvasSequence: [1920, 1080],
 }
 
 const assets = manifest.assets as Record<MediaKey, ManifestAsset>
@@ -72,6 +74,7 @@ function build(key: MediaKey): MediaAsset {
   return {
     key,
     src: mediaUrl(a.path),
+    avif: a.path.endsWith('.webp') ? mediaUrl(a.path.replace(/\.webp$/, '.avif')) : undefined,
     alt: a.alt,
     width,
     height,
@@ -90,16 +93,24 @@ export const media = Object.fromEntries(
   (Object.keys(DIMENSIONS) as MediaKey[]).map((k) => [k, build(k)]),
 ) as Record<MediaKey, MediaAsset>
 
-/** AVIF (metade do peso) com WebP como fallback; os dois conjuntos têm os mesmos 120 quadros. */
+/**
+ * Quadros da Travessia em dois tamanhos:
+ * - `frames-1024/`: AVIF + WebP 1024×576 (celular, notebook, e fallback sem AVIF);
+ * - `frames/`: só AVIF 1920×1080 (telas onde o canvas passa de ~1280 px reais).
+ */
 export type FrameFormat = 'avif' | 'webp'
+export type FrameSize = 1024 | 1920
 
 const seq = assets.canvasSequence
 export const frameSequence = {
   count: seq.frameCount ?? 120,
-  width: 1024,
-  height: 576,
+  width: 1920,
+  height: 1080,
   fps: 24,
-  src: (i: number, format: FrameFormat = 'webp') => mediaUrl(`media/frames/frame_${String(i).padStart(4, '0')}.${format}`),
+  src: (i: number, format: FrameFormat = 'webp', size: FrameSize = 1024) =>
+    mediaUrl(`media/${size === 1920 && format === 'avif' ? 'frames' : 'frames-1024'}/frame_${String(i).padStart(4, '0')}.${format}`),
+  /** Escolhe o conjunto pela largura real (CSS px × DPR) que o canvas vai ocupar. */
+  sizeFor: (devicePixels: number): FrameSize => (devicePixels > 1280 ? 1920 : 1024),
   credit: seq.credit,
   sourcePage: seq.sourcePage,
   licenseUrl: seq.licenseUrl,

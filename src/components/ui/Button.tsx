@@ -1,5 +1,5 @@
 import { forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type ReactNode } from 'react'
-import { ArrowRight } from '@phosphor-icons/react'
+import { ArrowRight } from '@phosphor-icons/react/dist/csr/ArrowRight'
 import { cn } from '../../lib/cn'
 
 type Variant = 'primary' | 'secondary' | 'text'

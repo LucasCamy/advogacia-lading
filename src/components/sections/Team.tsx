@@ -1,10 +1,12 @@
-import { useRef, useState } from 'react'
-import { Info } from '@phosphor-icons/react'
+import { Suspense, useRef, useState } from 'react'
+import { Info } from '@phosphor-icons/react/dist/csr/Info'
 import { team, type Member } from '../../data/content'
 import { MQ, gsap, useGSAP } from '../../lib/scroll'
 import { Media } from '../ui/Media'
 import { SplitWords } from '../ui/SplitWords'
-import { BioDialog } from '../dialogs/BioDialog'
+import { lazyWithPreload, preloadOn } from '../../lib/lazy'
+
+const BioDialog = lazyWithPreload(() => import('../dialogs/BioDialog').then((m) => ({ default: m.BioDialog })))
 
 /** Equipe: stagger dos 3 cards; P&B em repouso, cor e especialidade no hover/foco; modal Trajetória. */
 export function Team() {
@@ -68,6 +70,7 @@ export function Team() {
                 </div>
                 <button
                   type="button"
+                  {...preloadOn(BioDialog.preload)}
                   onClick={() => setMember(m)}
                   aria-haspopup="dialog"
                   className="inline-flex min-h-11 shrink-0 items-center border border-line-strong px-4 text-[12px] font-semibold uppercase tracking-[0.06em] transition-colors hover:border-text"
@@ -84,7 +87,11 @@ export function Team() {
         </p>
       </div>
 
-      <BioDialog member={member} onClose={() => setMember(null)} />
+      {member && (
+        <Suspense fallback={null}>
+          <BioDialog member={member} onClose={() => setMember(null)} />
+        </Suspense>
+      )}
     </section>
   )
 }

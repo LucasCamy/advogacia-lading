@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react'
-import { X } from '@phosphor-icons/react'
+import { X } from '@phosphor-icons/react/dist/csr/X'
 import { lockScroll, unlockScroll } from '../../lib/scroll'
 import { cn } from '../../lib/cn'
 

@@ -1,11 +1,13 @@
-import { useMemo, useRef, useState } from 'react'
-import { ArrowUpRight } from '@phosphor-icons/react'
+import { Suspense, useMemo, useRef, useState } from 'react'
+import { ArrowUpRight } from '@phosphor-icons/react/dist/csr/ArrowUpRight'
 import { areaRowImages, areas, profiles, type Area, type Profile } from '../../data/content'
 import { MQ, gsap, refreshScroll, useGSAP } from '../../lib/scroll'
 import { cn } from '../../lib/cn'
 import { Media } from '../ui/Media'
 import { SplitWords } from '../ui/SplitWords'
-import { AreaDrawer } from '../dialogs/AreaDrawer'
+import { lazyWithPreload, preloadOn } from '../../lib/lazy'
+
+const AreaDrawer = lazyWithPreload(() => import('../dialogs/AreaDrawer').then((m) => ({ default: m.AreaDrawer })))
 
 function chunk<T>(list: T[], size: number) {
   const out: T[][] = []
@@ -122,6 +124,7 @@ export function Areas() {
                           <p className="mt-3 max-w-[40ch] text-[15px] text-muted">{a.summary}</p>
                           <button
                             type="button"
+                            {...preloadOn(AreaDrawer.preload)}
                             onClick={() => setSelected(a)}
                             aria-haspopup="dialog"
                             className="mt-auto inline-flex min-h-11 items-center gap-2 self-start pt-8 text-sm font-semibold uppercase tracking-[0.06em] text-text"
@@ -141,7 +144,11 @@ export function Areas() {
         )}
       </div>
 
-      <AreaDrawer area={selected} onClose={() => setSelected(null)} />
+      {selected && (
+        <Suspense fallback={null}>
+          <AreaDrawer area={selected} onClose={() => setSelected(null)} />
+        </Suspense>
+      )}
     </section>
   )
 }

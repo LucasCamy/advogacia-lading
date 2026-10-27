@@ -9,10 +9,10 @@ type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'alt'> & {
   decorative?: boolean
 }
 
-/** Imagem do pacote com object-position derivado do focalPoint. */
+/** Imagem do pacote: AVIF com WebP de fallback, object-position derivado do focalPoint. */
 export function Media({ name, priority, decorative, className, style, ...rest }: Props) {
   const m = media[name]
-  return (
+  const img = (
     <img
       src={m.src}
       alt={decorative ? '' : m.alt}
@@ -25,5 +25,12 @@ export function Media({ name, priority, decorative, className, style, ...rest }:
       style={{ objectPosition: m.objectPosition, ...style }}
       {...rest}
     />
+  )
+  if (!m.avif) return img
+  return (
+    <picture className="contents">
+      <source srcSet={m.avif} type="image/avif" />
+      {img}
+    </picture>
   )
 }

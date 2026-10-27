@@ -83,7 +83,10 @@ Recompor por largura (ver DESIGN.md). `gsap.matchMedia()` com `(min-width: 1024p
 
 - Imagens com `width/height` explícitos, `loading="lazy"` e `decoding="async"` abaixo da dobra; hero `fetchpriority="high"`.
 - DPR do canvas ≤ 2; resize via `ResizeObserver`.
-- Vídeo de ambiência só carrega quando há movimento permitido e pausa fora da viewport.
+- Vídeo de ambiência 1280×720 (~630 KB): só desktop com movimento permitido, `src` definido após `load` + `requestIdleCallback`, pausa fora da viewport.
+- Quadros da Travessia: conjunto 1024 ou 1920 escolhido pela largura × DPR do canvas (e `saveData`); pôster e quadros só baixam a partir de `top 250%`.
+- Imagens estáticas em AVIF com WebP de fallback; preload do retrato do hero em AVIF.
+- Lenis e os três diálogos em chunks separados (ver README).
 - Nenhum estado React por quadro; valores contínuos em objetos GSAP/refs.
 
 ## Checklist de testes

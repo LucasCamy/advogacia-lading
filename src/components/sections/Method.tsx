@@ -1,5 +1,6 @@
 import { useRef } from 'react'
-import { MapPin, VideoCamera } from '@phosphor-icons/react'
+import { MapPin } from '@phosphor-icons/react/dist/csr/MapPin'
+import { VideoCamera } from '@phosphor-icons/react/dist/csr/VideoCamera'
 import { steps } from '../../data/content'
 import { MQ, gsap, useGSAP, useMediaQuery } from '../../lib/scroll'
 import { requestMeeting } from '../../lib/schedule'

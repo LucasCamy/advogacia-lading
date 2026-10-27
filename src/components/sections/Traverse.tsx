@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { CaretLeft, CaretRight } from '@phosphor-icons/react'
+import { CaretLeft } from '@phosphor-icons/react/dist/csr/CaretLeft'
+import { CaretRight } from '@phosphor-icons/react/dist/csr/CaretRight'
 import { milestones } from '../../data/content'
-import { frameSequence, media, type FrameFormat } from '../../data/media'
+import { frameSequence, media, type FrameFormat, type FrameSize } from '../../data/media'
 import { MQ, ScrollTrigger, gsap, scrollToTarget, useGSAP, useMotionAllowed } from '../../lib/scroll'
 
 const { count: FRAMES, src: frameSrc } = frameSequence
@@ -36,6 +37,8 @@ function TraverseScene() {
   const stepRef = useRef(0)
   // Tenta AVIF; no primeiro erro de decodificação passa para WebP e repete o quadro.
   const format = useRef<FrameFormat>('avif')
+  // Conjunto 1024 ou 1920, decidido uma vez quando o pré-carregamento começa.
+  const size = useRef<FrameSize>(1024)
 
   /** Desenha o quadro pedido ou o carregado mais próximo antes dele (cover manual). */
   const draw = useCallback((index: number) => {
@@ -68,7 +71,7 @@ function TraverseScene() {
           load(i)
         }
       }
-      img.src = frameSrc(i + 1, fmt)
+      img.src = frameSrc(i + 1, fmt, size.current)
       img.onload = () => {
         frames.current[i] = img
         // Redesenha quando o quadro esperado (ou um mais próximo) chega.
@@ -78,9 +81,8 @@ function TraverseScene() {
     [draw],
   )
 
-  // Pôster: primeiro quadro imediatamente. Resize com DPR ≤ 2.
+  // Resize com DPR ≤ 2. O pôster (quadro 1) só baixa quando a cena se aproxima.
   useEffect(() => {
-    load(0)
     const c = canvas.current
     if (!c) return
     const ro = new ResizeObserver(() => {
@@ -101,6 +103,10 @@ function TraverseScene() {
         start: 'top 250%',
         once: true,
         onEnter: () => {
+          const c = canvas.current
+          const dpr = Math.min(window.devicePixelRatio || 1, 2)
+          const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData
+          size.current = saveData ? 1024 : frameSequence.sizeFor((c?.clientWidth ?? window.innerWidth) * dpr)
           for (let i = 0; i < FRAMES; i++) load(i)
         },
       })
@@ -289,7 +295,11 @@ function TraverseStatic() {
               <figure>
                 <div className="aspect-video overflow-hidden bg-surface">
                   <picture>
-                    <source srcSet={frameSrc(m.frame, 'avif')} type="image/avif" />
+                    <source
+                      srcSet={`${frameSrc(m.frame, 'avif', 1024)} 1024w, ${frameSrc(m.frame, 'avif', 1920)} 1920w`}
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                      type="image/avif"
+                    />
                     <img
                       src={frameSrc(m.frame)}
                       alt=""

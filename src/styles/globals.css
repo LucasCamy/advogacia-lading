@@ -1,6 +1,5 @@
 @import 'tailwindcss' source('../');
 @import './tokens.css';
-@import 'lenis/dist/lenis.css';
 
 @theme inline {
   --color-bg: var(--bg);

@@ -146,8 +146,8 @@
       "credit": "Derivado de imagens geradas para este projeto",
       "path": "media/hero-ambient.mp4",
       "sourcePaths": [
-        "media/contact-space.webp",
-        "media/section-editorial.webp"
+        "source/contact-space-source.png",
+        "source/section-editorial-source.png"
       ],
       "alt": "Sala de conselho noturna e escadaria clássica em luz cinematográfica suave.",
       "width": 1920,
@@ -168,25 +168,25 @@
       "credit": "Derivado de imagens geradas para este projeto",
       "path": "media/canvas-sequence.mp4",
       "sourcePaths": [
-        "media/section-editorial.webp",
-        "media/bento-02-contract.webp",
-        "media/contact-space.webp"
+        "source/section-editorial-source.png",
+        "source/bento-02-contract-source.png",
+        "source/contact-space-source.png"
       ],
       "alt": "Travessia entre escadaria clássica, assinatura de contrato e sala de conselho noturna.",
-      "width": 1024,
-      "height": 576,
+      "width": 1920,
+      "height": 1080,
       "frameCount": 120,
       "framesDirectory": "media/frames/",
       "framePattern": "media/frames/frame_%04d.webp",
       "frameAvifPattern": "media/frames/frame_%04d.avif",
       "firstFrame": "media/frames/frame_0001.webp",
       "lastFrame": "media/frames/frame_0120.webp",
-      "frameWidth": 1024,
-      "frameHeight": 576,
-      "frameQuality": 80,
+      "frameWidth": 1920,
+      "frameHeight": 1080,
+      "frameQuality": 92,
       "frameAvifCount": 120,
       "frameAvifCodec": "AV1",
-      "frameAvifCrf": 30,
+      "frameAvifCrf": 27,
       "processing": "Travessia Estratégica em Chiaroscuro: escadaria, contrato e sala de conselho com transições por máscara; 120 quadros."
     }
   },
@@ -195,15 +195,15 @@
     "stillImageFormat": "WebP",
     "stillImageQuality": 84,
     "frameFormat": "WebP",
-    "frameQuality": 80,
-    "frameWidth": 1024,
+    "frameQuality": 92,
+    "frameWidth": 1920,
     "videoCodec": "H.264",
     "videoDurationSeconds": 5,
-    "notes": "Sequências e ambiências são geradas das imagens locais do projeto com Python, OpenCV e FFmpeg.",
-    "frameHeight": 576,
+    "notes": "Vídeos e quadros renderizados a partir dos PNGs originais; H.264 CRF 16, WebP qualidade 92 e AVIF CRF 27.",
+    "frameHeight": 1080,
     "frameRate": 24,
     "frameAvifFormat": "AVIF",
     "frameAvifCodec": "AV1",
-    "frameAvifCrf": 30
+    "frameAvifCrf": 27
   }
 }

@@ -1,7 +1,8 @@
-import { ArrowUp } from '@phosphor-icons/react'
+import { ArrowUp } from '@phosphor-icons/react/dist/csr/ArrowUp'
 import { PENDING, brand, navItems } from '../../data/content'
 import { credits, frameSequence } from '../../data/media'
-import { openLegal } from '../dialogs/LegalDialog'
+import { LegalDialogLazy, openLegal } from '../../lib/legal'
+import { preloadOn } from '../../lib/lazy'
 import { Wordmark } from '../nav/Navbar'
 
 export function Footer() {
@@ -45,17 +46,17 @@ export function Footer() {
           <p className="mono text-muted">Legal</p>
           <ul className="mt-4 space-y-1">
             <li>
-              <button type="button" onClick={() => openLegal('privacidade')} className="link-underline min-h-9 text-left text-sm">
+              <button type="button" {...preloadOn(LegalDialogLazy.preload)} onClick={() => openLegal('privacidade')} className="link-underline min-h-9 text-left text-sm">
                 Política de Privacidade
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => openLegal('termos')} className="link-underline min-h-9 text-left text-sm">
+              <button type="button" {...preloadOn(LegalDialogLazy.preload)} onClick={() => openLegal('termos')} className="link-underline min-h-9 text-left text-sm">
                 Termos de Uso
               </button>
             </li>
             <li>
-              <button type="button" onClick={() => openLegal('cookies')} className="link-underline min-h-9 text-left text-sm">
+              <button type="button" {...preloadOn(LegalDialogLazy.preload)} onClick={() => openLegal('cookies')} className="link-underline min-h-9 text-left text-sm">
                 Cookies
               </button>
             </li>

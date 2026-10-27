@@ -2,7 +2,7 @@ import { useSyncExternalStore } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-import Lenis from 'lenis'
+import type Lenis from 'lenis'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 ScrollTrigger.config({ ignoreMobileResize: true })
@@ -66,18 +66,28 @@ let locks = 0
 
 export const HEADER_OFFSET = 72
 
-export function initLenis() {
+// Incrementado a cada init/destroy: descarta um import que termine depois do destroy.
+let generation = 0
+
+/** Carrega o Lenis sob demanda (chunk próprio): quem usa movimento reduzido nunca baixa. */
+export async function initLenis() {
   if (lenis) return lenis
-  lenis = new Lenis({ lerp: 0.085 })
+  const gen = ++generation
+  const { default: LenisCtor } = await import('lenis')
+  await import('lenis/dist/lenis.css')
+  if (gen !== generation || lenis) return lenis
+  lenis = new LenisCtor({ lerp: 0.085 })
   lenis.on('scroll', ScrollTrigger.update)
   tick = (time: number) => lenis?.raf(time * 1000)
   gsap.ticker.add(tick)
   gsap.ticker.lagSmoothing(0)
   if (locks > 0) lenis.stop()
+  ScrollTrigger.refresh()
   return lenis
 }
 
 export function destroyLenis() {
+  generation++
   if (tick) gsap.ticker.remove(tick)
   lenis?.destroy()
   lenis = null

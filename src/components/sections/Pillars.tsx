@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Plus } from '@phosphor-icons/react'
+import { Plus } from '@phosphor-icons/react/dist/csr/Plus'
 import { pillars } from '../../data/content'
 import { MQ, gsap, refreshScroll, useGSAP } from '../../lib/scroll'
 import { cn } from '../../lib/cn'

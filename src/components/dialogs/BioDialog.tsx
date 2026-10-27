@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Info } from '@phosphor-icons/react'
+import { Info } from '@phosphor-icons/react/dist/csr/Info'
 import type { Member } from '../../data/content'
 import { media } from '../../data/media'
 import { requestMeeting } from '../../lib/schedule'

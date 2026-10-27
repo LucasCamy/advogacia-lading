@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { Pause, Play } from '@phosphor-icons/react'
+import { Pause } from '@phosphor-icons/react/dist/csr/Pause'
+import { Play } from '@phosphor-icons/react/dist/csr/Play'
 import { brand, heroFronts } from '../../data/content'
 import { media } from '../../data/media'
 import { MQ, gsap, useGSAP, useMotionAllowed } from '../../lib/scroll'
@@ -16,6 +17,8 @@ export function Hero() {
   const video = useRef<HTMLVideoElement>(null)
   const motion = useMotionAllowed()
   const [ambientOn, setAmbientOn] = useState(true)
+  // O vídeo só ganha src depois do load + ocioso, e só no desktop: não disputa banda com o LCP.
+  const [ambientReady, setAmbientReady] = useState(false)
 
   useGSAP(
     () => {
@@ -69,17 +72,32 @@ export function Hero() {
     { scope: root },
   )
 
+  useEffect(() => {
+    if (!motion || !window.matchMedia('(min-width: 1024px)').matches) return
+    let idle = 0
+    const ready = () => {
+      const ric = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 300))
+      idle = ric(() => setAmbientReady(true), { timeout: 2500 })
+    }
+    if (document.readyState === 'complete') ready()
+    else window.addEventListener('load', ready, { once: true })
+    return () => {
+      window.removeEventListener('load', ready)
+      ;(window.cancelIdleCallback ?? window.clearTimeout)(idle)
+    }
+  }, [motion])
+
   // Ambiência só com movimento permitido; pausa fora da viewport.
   useEffect(() => {
     const v = video.current
-    if (!v || !motion) return
+    if (!v || !motion || !ambientReady) return
     const io = new IntersectionObserver(([e]) => {
       if (e.isIntersecting && ambientOn) v.play().catch(() => {})
       else v.pause()
     })
     io.observe(v)
     return () => io.disconnect()
-  }, [motion, ambientOn])
+  }, [motion, ambientOn, ambientReady])
 
   const toggleAmbient = () => {
     const v = video.current
@@ -100,7 +118,7 @@ export function Hero() {
         <video
           ref={video}
           className="hero-ambient pointer-events-none absolute inset-0 -z-10 hidden h-full w-full lg:block object-cover opacity-[0.14] mix-blend-luminosity"
-          src={media.heroAmbient.src}
+          src={ambientReady ? media.heroAmbient.src : undefined}
           muted
           loop
           playsInline

@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { CheckCircle, CircleNotch, WarningCircle } from '@phosphor-icons/react'
+import { CheckCircle } from '@phosphor-icons/react/dist/csr/CheckCircle'
+import { CircleNotch } from '@phosphor-icons/react/dist/csr/CircleNotch'
+import { WarningCircle } from '@phosphor-icons/react/dist/csr/WarningCircle'
 import { areas } from '../../data/content'
 import { scheduleStore, useStore, type Modality } from '../../lib/store'
-import { openLegal } from '../dialogs/LegalDialog'
+import { LegalDialogLazy, openLegal } from '../../lib/legal'
+import { preloadOn } from '../../lib/lazy'
 import { cn } from '../../lib/cn'
 
 type Fields = {
@@ -183,7 +186,7 @@ export function ContactForm() {
       <div className="mt-8 flex flex-col gap-5 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-[46ch] text-sm text-muted">
           Usamos estes dados só para responder à sua solicitação. Saiba mais na{' '}
-          <button type="button" onClick={() => openLegal('privacidade')} className="text-accent-text underline decoration-1 underline-offset-4">
+          <button type="button" {...preloadOn(LegalDialogLazy.preload)} onClick={() => openLegal('privacidade')} className="text-accent-text underline decoration-1 underline-offset-4">
             Política de Privacidade
           </button>
           .

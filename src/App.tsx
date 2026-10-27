@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Navbar } from './components/nav/Navbar'
 import { ScrollProgress } from './components/nav/ScrollProgress'
 import { Hero } from './components/sections/Hero'
@@ -11,8 +11,9 @@ import { Team } from './components/sections/Team'
 import { Faq } from './components/sections/Faq'
 import { Contact } from './components/sections/Contact'
 import { Footer } from './components/sections/Footer'
-import { LegalDialog } from './components/dialogs/LegalDialog'
-import { ScrollTrigger, bindAnchors, destroyLenis, initLenis, useMotionAllowed } from './lib/scroll'
+import { LegalDialogLazy, legalStore } from './lib/legal'
+import { useStore } from './lib/store'
+import { bindAnchors, destroyLenis, initLenis, useMotionAllowed } from './lib/scroll'
 
 export default function App() {
   const motion = useMotionAllowed()
@@ -20,8 +21,7 @@ export default function App() {
   // Lenis só com movimento permitido; sem ele, scroll nativo.
   useEffect(() => {
     if (!motion) return
-    initLenis()
-    ScrollTrigger.refresh()
+    void initLenis()
     return () => destroyLenis()
   }, [motion])
 
@@ -48,9 +48,20 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
-      <LegalDialog />
+      <LegalHost />
       {/* Por último: os gatilhos de capítulo dependem das cenas fixadas acima. */}
       <ScrollProgress />
     </>
+  )
+}
+
+/** Monta o diálogo legal (chunk separado) só quando algum documento é aberto. */
+function LegalHost() {
+  const open = useStore(legalStore, (s) => s.doc !== null)
+  if (!open) return null
+  return (
+    <Suspense fallback={null}>
+      <LegalDialogLazy />
+    </Suspense>
   )
 }

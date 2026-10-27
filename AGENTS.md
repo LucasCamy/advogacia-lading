@@ -15,7 +15,7 @@ Landing page demonstrativa (scrollytelling) do escritório fictício **Varela & 
 ```
 public/media/            mídias do pacote (não editar à mão; origem em src/data/MEDIA_MANIFEST.json; AVIF regerados, ver README)
 src/data/                media.ts (fonte única de mídia), content.ts (conteúdo demonstrativo)
-src/lib/                 scroll.ts (GSAP/Lenis/reduced motion), useDialog.ts, useCountUp etc.
+src/lib/                 scroll.ts (GSAP/Lenis/reduced motion), store.ts, legal.ts (estado do diálogo legal), lazy.ts (lazyWithPreload)
 src/styles/              tokens.css (CSS variables), globals.css
 src/components/ui/       primitivos (Button, Dialog, Media)
 src/components/sections/ uma seção por arquivo, na ordem da página
@@ -39,7 +39,9 @@ scripts/validate.mjs     validação Playwright (overflow, âncoras, screenshots
 - Um único acento (`--accent`, terracota). Texto pequeno em acento usa `--accent-text` (contraste AA).
 - Mídia sempre via `src/data/media.ts` (inclui `alt`, crédito e `object-position` derivado do `focalPoint`).
 - Toda cena de scroll precisa de versão estática para `prefers-reduced-motion: reduce`. `?movimento=1` força as animações.
-- Todo diálogo usa `useDialog` (foco preso, Esc, devolução de foco, `lenis.stop()`/`start()`).
+- Todo diálogo usa o primitivo `Dialog` (foco preso, Esc, devolução de foco, `lenis.stop()`/`start()`). Diálogos de conteúdo são carregados com `lazyWithPreload` e montados só quando abertos; o estado que os abre fica fora do chunk (ex.: `lib/legal.ts`).
+- Ícones Phosphor importados um a um (`@phosphor-icons/react/dist/csr/<Nome>`), nunca do pacote raiz.
+- Mídia nova: siga "Mídias e peso" no README (quadros 1024, ambiência 720p, AVIF conferido no navegador).
 - Proibido `window.addEventListener('scroll')`; use ScrollTrigger ou IntersectionObserver.
 - Copy: sem travessão longo em texto visível, sem jargão de marketing, números com unidade.
 

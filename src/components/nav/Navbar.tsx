@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { List } from '@phosphor-icons/react'
+import { List } from '@phosphor-icons/react/dist/csr/List'
 import { brand, navItems, chapters } from '../../data/content'
 import { chapterStore, useStore } from '../../lib/store'
 import { scrollToTarget } from '../../lib/scroll'

@@ -1,14 +1,11 @@
 import { useRef } from 'react'
-import { Warning } from '@phosphor-icons/react'
+import { Warning } from '@phosphor-icons/react/dist/csr/Warning'
 import { PENDING, brand, contactEmail } from '../../data/content'
-import { createStore, useStore } from '../../lib/store'
+import { useStore } from '../../lib/store'
+import { legalStore, type LegalDoc } from '../../lib/legal'
 import { cn } from '../../lib/cn'
 import { Dialog } from '../ui/Dialog'
 
-export type LegalDoc = 'privacidade' | 'termos' | 'cookies'
-
-const legalStore = createStore<{ doc: LegalDoc | null }>({ doc: null })
-export const openLegal = (doc: LegalDoc) => legalStore.set({ doc })
 
 const TABS: { id: LegalDoc; label: string }[] = [
   { id: 'privacidade', label: 'Privacidade' },
